@@ -31,6 +31,8 @@ npm run deploy              # builds out/ and deploys the Worker "matchbee" (htt
 npm run preview             # or: a private preview link, without making it live
 ```
 
+**Automatic deploys:** `.github/workflows/deploy.yml` typechecks, builds and tests every push and pull request, and deploys every push to `main` that passes. It needs the repository secrets `CLOUDFLARE_API_TOKEN` (Cloudflare -> My Profile -> API Tokens -> template "Edit Cloudflare Workers") and `CLOUDFLARE_ACCOUNT_ID` (Cloudflare -> Workers & Pages, "Account ID"), under GitHub -> Settings -> Secrets and variables -> Actions.
+
 Static files are served free and unlimited without running the Worker; only `/api/*`, `/healthz` and the Google verification file run `worker.ts`. Page security headers come from `public/_headers`. No secrets are needed here: every key lives in the API.
 
 ## Layout
