@@ -23,3 +23,7 @@ GOOGLE_SITE_VERIFICATION = "googlecdf4ba117242555b"
 [[services]]
 binding = "API"
 service = "matchbee-api"
+
+# No schedule here: the hourly job runs on matchbee-api. An empty list removes the cron left over from the old single Worker.
+[triggers]
+crons = []
