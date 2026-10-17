@@ -1,0 +1,1 @@
+pdf.js 5.4.624 (pdfjs-dist), Apache-2.0. Loaded only when a PDF resume is uploaded in the ATS check tab.

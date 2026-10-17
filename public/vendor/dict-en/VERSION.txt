@@ -1,0 +1,1 @@
+dictionary-en 4.0.0 (MIT AND BSD, https://github.com/wooorm/dictionaries): US English Hunspell dictionary from SCOWL / en_US. See LICENSE.

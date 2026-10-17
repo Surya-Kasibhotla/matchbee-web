@@ -1,0 +1,12 @@
+.env
+.dev.vars
+node_modules/
+*.log
+.DS_Store
+.wrangler/
+
+# Next.js build output
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo

@@ -1,0 +1,37 @@
+{
+ "name": "MatchBee · AI resume builder and job alerts",
+ "short_name": "MatchBee",
+ "description": "Paste a job description, get a tailored resume, phone intro and gap report.",
+ "start_url": "/builder/",
+ "scope": "/",
+ "display": "standalone",
+ "background_color": "#f5f8f6",
+ "theme_color": "#0b996e",
+ "icons": [
+  {
+   "src": "/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "/icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ],
+ "share_target": {
+  "action": "/builder/",
+  "method": "GET",
+  "params": {
+   "title": "title",
+   "text": "text",
+   "url": "url"
+  }
+ }
+}

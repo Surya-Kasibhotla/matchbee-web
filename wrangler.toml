@@ -1,0 +1,25 @@
+# The MatchBee website Worker: the Next.js pages (static export in ./out) at https://matchbee.hireloop.workers.dev.
+# /api/* and /healthz are passed to the API Worker "matchbee-api" (the backend) through the service binding below,
+# so the website and the API share one address and the sign-in cookie. Deploy the backend first.
+name = "matchbee"
+main = "worker.ts"
+compatibility_date = "2026-10-15"
+
+# Builds the pages into ./out before every deploy (so a plain `npx wrangler deploy` is always up to date)
+[build]
+command = "npm run build"
+
+[assets]
+directory = "./out"   # built by `npm run build` (Next.js static export)
+binding = "ASSETS"
+# Static files are served free and unlimited without running the Worker (headers come from public/_headers).
+# Only these paths run worker.ts, which saves the 100,000/day free invocations.
+run_worker_first = ["/api/*", "/healthz", "/googlecdf4ba117242555b.html"]
+
+[vars]
+# Google Search Console HTML-file verification (file name without .html). Also listed in run_worker_first above.
+GOOGLE_SITE_VERIFICATION = "googlecdf4ba117242555b"
+
+[[services]]
+binding = "API"
+service = "matchbee-api"

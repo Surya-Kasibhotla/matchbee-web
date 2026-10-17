@@ -1,0 +1,1 @@
+nspell 2.1.5 (MIT, https://github.com/wooorm/nspell), bundled with esbuild 0.24.0 as a browser global "nspell". Includes is-buffer 2.0.5 (MIT).
