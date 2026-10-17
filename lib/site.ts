@@ -14,7 +14,7 @@ export const SITE = {
     { id: 'builder', name: 'Resume Builder', href: '/builder/', icon: 'doc', desc: 'Turn any job description into a tailored resume.' },
     { id: 'ats', name: 'ATS Resume Checker', href: '/ats/', icon: 'gauge', desc: 'Get a score plus spelling, date and tech-timeline checks.' },
     { id: 'jobs', feature: 'jobs', name: 'Job Alerts', href: '/jobs/', icon: 'bell', desc: 'The latest matching US jobs, emailed to you every day.' },
-    { id: 'intro', name: 'Phone Intro Script', href: '/builder/#intro', icon: 'phone', desc: 'A short opener for your next recruiter call.' },
+    { id: 'intro', name: 'Phone Intro Script', href: '/builder/#intro', icon: 'phone', desc: 'A short opener and 8 to 10 talking points about your current project for your next recruiter call.' },
     { id: 'gaps', name: 'Gap Report', href: '/builder/#gaps', icon: 'search', desc: 'See which job requirements you have not covered.' },
   ],
 

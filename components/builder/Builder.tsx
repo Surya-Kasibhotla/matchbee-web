@@ -64,8 +64,8 @@ export function Builder() {
     if (busy) return;
     setAi(null); setStale(false); setNote(''); setEdited(null);
     if ((f.jd || '').trim().length < 40) { setNote('Paste a job description to get AI tailoring. Showing the template version.'); setGen(true); return; }
-    setBusy(true); setBusyLabel(auto ? 'Writing draft…' : 'Comparing AI versions…'); // several AIs write a version: up to about 25 seconds
-    const ctl = genCtl.current = new AbortController(), t = setTimeout(() => ctl.abort(), 60000);
+    setBusy(true); setBusyLabel(auto ? 'Writing draft…' : 'Comparing AI versions…'); // several AIs write a full version: about 30 to 90 seconds
+    const ctl = genCtl.current = new AbortController(), t = setTimeout(() => ctl.abort(), 120000); // several AIs write a full resume (8 to 10 bullets per client), which can take over a minute
     try {
       const x = await api<{ resume: Ai; compared?: number }>('POST', '/api/generate', payload(f, J, jobId), ctl.signal);
       if (ctl !== genCtl.current) return;

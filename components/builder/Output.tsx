@@ -113,6 +113,8 @@ export const Output = forwardRef<AtsHandle, Props>(function Output(props, atsRef
               {banners}
               <div className="actions"><button type="button" onClick={e => copyText(introText(ip), e.currentTarget)}>Copy all</button></div>
               <h3 className="sec">Opening script</h3><div className="script">&ldquo;<Marked t={ip.opener} />&rdquo;</div>
+              {ip.points.length > 0 && <><h3 className="sec">About your current project</h3><ol className="ql">{ip.points.map((x, i) => <li key={i}><Marked t={x} /></li>)}</ol>
+                <p className="note">Fill in the [brackets] with your real details. Lines starting [Only if true] name a tool you did not list: say them only if you have used it.</p></>}
               {ip.questions.length > 0 && <><h3 className="sec">Questions to ask the recruiter</h3><ol className="ql">{ip.questions.map((q, i) => <li key={i}>{q}</li>)}</ol></>}
               {ip.qa.length > 0 && <><h3 className="sec">If they ask you</h3>{ip.qa.map((x, i) => <div className="qa" key={i}><strong>{x.q}</strong><div><Marked t={x.a} /></div></div>)}</>}
               {!ip.ai && <p className="note">This is the basic version. Press Generate to have the AI write a script and questions from your pasted text.</p>}

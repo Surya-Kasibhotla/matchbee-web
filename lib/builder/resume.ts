@@ -7,7 +7,7 @@ export type Form = { jd: string; name: string; role: string; phone: string; emai
 export type Bullet = { text: string; source: string; flags?: string[] };
 export type Ai = {
   draft?: boolean; summary?: string; skills?: string[]; skill_groups?: { name: string; items: string[] }[];
-  experience?: { client: string; bullets: Bullet[] }[]; intro?: string; gap_notes?: string[];
+  experience?: { client: string; bullets: Bullet[] }[]; intro?: string; intro_points?: string[]; gap_notes?: string[];
   questions_to_ask?: string[]; screening_qa?: { q: string; a: string }[]; warnings?: string[];
 };
 export type Profile = { id?: string; label: string; first: string; last: string; phone: string; email: string; role: string; clients: { name: string; from: string; to: string; tech: string[] }[]; updated?: number };
@@ -68,9 +68,9 @@ export function resumeHTML(f: Form, J: Jd, ai: Ai | null) {
   return h + '<h2>Education</h2><div>' + ph(f.edu, 'Degree, University, Year') + '</div>';
 }
 
-/** Phone intro: the AI's version when there is one, otherwise a basic script from the form */
+/** Phone intro: the AI's version when there is one (an opener plus 8 to 10 talking points about the current project), otherwise a basic script from the form */
 export function introParts(f: Form, J: Jd, ai: Ai | null) {
-  if (ai && ai.intro) return { opener: ai.intro, questions: ai.questions_to_ask || [], qa: ai.screening_qa || [], ai: true };
+  if (ai && ai.intro) return { opener: ai.intro, points: ai.intro_points || [], questions: ai.questions_to_ask || [], qa: ai.screening_qa || [], ai: true };
   const fa = J.facts || {}, skills = haveSkills(f, J), names = f.clients.filter(c => c.name.trim()).map(c => c.name.trim());
   const gaps = J.skills.filter(k => !f.have[k]).slice(0, 3), title = fa.title || J.title, loc = fa.location || J.loc, t = titleOf(f);
   let s = 'Hi, this is ' + ((f.name || '').trim() || '[Your Name]') + '. ' + "I'm calling about the " + (title || '[role]') + ' role' + (loc ? ' (' + loc + ')' : '') + '. ' +
@@ -79,10 +79,11 @@ export function introParts(f: Form, J: Jd, ai: Ai | null) {
   if (/\b(ai|ml|machine learning|deep learning|llms?|gen(erative)? ?ai|nlp|data scien\w*)\b/i.test(f.jd || '')) s += ' [Add your real AI/ML work here in one sentence, or delete this.]';
   if (gaps.length) s += " I'd like to understand how heavily the role leans on " + listJoin(gaps) + '.';
   s += ' Could you tell me about the team and what the first few months would look like?';
-  return { opener: s, questions: ['Is the role onsite, hybrid or remote, and is it W2 or C2C?', 'What does the day-to-day work look like?', 'What is the interview process and timeline?'], qa: [] as { q: string; a: string }[], ai: false };
+  return { opener: s, points: [] as string[], questions: ['Is the role onsite, hybrid or remote, and is it W2 or C2C?', 'What does the day-to-day work look like?', 'What is the interview process and timeline?'], qa: [] as { q: string; a: string }[], ai: false };
 }
 export function introText(p: ReturnType<typeof introParts>) {
   let t = '"' + p.opener + '"';
+  if (p.points.length) t += '\n\nAbout my current project:\n' + p.points.map((x, i) => i + 1 + '. ' + x).join('\n');
   if (p.questions.length) t += '\n\nQuestions to ask the recruiter:\n' + p.questions.map((q, i) => i + 1 + '. ' + q).join('\n');
   if (p.qa.length) t += '\n\nIf they ask you:\n' + p.qa.map(x => 'Q: ' + x.q + '\nA: ' + x.a).join('\n\n');
   return t;
